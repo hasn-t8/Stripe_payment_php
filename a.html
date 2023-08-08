@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Form Submission</title>
+</head>
+<body>
+    <form id="myForm" action="http://yutb.42web.io/submit.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <input type="submit" id="submit" value="Submit">
+    </form>
+    
+    <script>
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    console.log('Form submitted successfully.');
+                } else {
+                    console.error('Form submission failed.');
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        });
+    </script>
+</body>
+</html>
